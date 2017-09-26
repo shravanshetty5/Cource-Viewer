@@ -1,0 +1,1 @@
+Cource-Viewer Web app is a training app built to get familiar with building component based angularjs applications. It is currently fully functional and is based on the training material provided by Miguel Castro. 
