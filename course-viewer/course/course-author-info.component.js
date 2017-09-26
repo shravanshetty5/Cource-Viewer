@@ -2,14 +2,30 @@
     'use strict';
 
     angular.module('courseViewer').component('courseAuthorInfo', {
+        bindings: {
+            author: '<'
+        },
+        require: {
+            courseVm: '^course' //course controller
+        },
         controllerAs: 'vm',
-        controller: function () {
+        controller: function (courseService) {
             var vm = this;
 
-            vm.$onInit = function () {
-                if (!vm.authorId)
-                    vm.authorId = 101; // sample only
-            }
+            vm.$onChanges = function(changes) {
+                if(vm.courseVm != null && vm.courseVm.course != null) {
+                    var course = vm.courseVm.course;
+                    var hours = 0;
+                    var minutes = 0;
+                    var seconds = 0;
+                    course.Modules.forEach(function(module) {
+                        minutes += module.Minutes;
+                        seconds += module.Seconds;
+                    });
+                    vm.courselength = courseService.timeFormat(hours, minutes, seconds);
+                    vm.courseReleased = new Date(course.Released).toLocaleDateString();
+                }
+            };
         },
         templateUrl: 'course-viewer/course/course-author-info.component.html'
     });

@@ -1,1 +1,16 @@
-<h4>COURSE DISCUSSION</h4>
+<div ng-if="vm.authenticationService.loggedIn">
+    <h4>COURSE DISCUSSION</h4>
+    <course-discussion-list course-discussion="vm.courseDiscussion"></course-discussion-list>
+    <hr />
+    <div class="row">
+        <div class="col-md-12">
+            <button class="btn btn-primary" ng-hide="vm.commentEntryVisible" ng-click="vm.showCommentEntry()">
+                COMMENT
+            </button>
+        </div>
+        <course-discussion-item ng-show="vm.commentEntryVisible" save-comment="vm.saveCommentEntry" cancel-comment="vm.cancelCommentEntry"></course-discussion-item>
+    </div>
+</div>
+<div ng-if="!vm.authenticationService.loggedIn">
+    NOT LOGGED IN
+</div>

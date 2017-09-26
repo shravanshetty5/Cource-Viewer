@@ -6,12 +6,24 @@
             courseId: '<'
         },
         controllerAs: 'vm',
-        controller: function () {
+        controller: function (courseService, authenticationService) {
             var vm = this;
 
+            vm.course = null;
+            vm.authenticationService = authenticationService;
+
             vm.$onInit = function () {
-                if (!vm.courseId)
-                    vm.courseId = 200; // sample only
+                if (vm.courseId) {
+                    courseService.getCourse(vm.courseId).then(function (course) {
+                        vm.course = course;
+                    });
+
+                    if (authenticationService.loggedIn) {
+                        courseService.updateRecentlyViewdCourse(authenticationService.userName, vm.courseId).then(function (result) {
+                            console.log(result);
+                        });
+                    }
+                }
             }
         },
         templateUrl: 'course-viewer/course/course.component.html'

@@ -1,0 +1,23 @@
+<h4>RECENTLY VIEWED COURSES</h4>
+<hr />
+<div ng-if="vm.loggedIn">
+    <div ng-if="vm.recentCourses == null || vm.recentCourses.length == 0">
+        NO COURSES RECENTLY VIEWED
+    </div>
+    <div ng-if="vm.recentCourses != null && vm.recentCourses.length != 0">
+        <a href ng-click="vm.clearRecentCourses()">CLEAR RECENTLY VIEWED COURSES</a>
+        <br />
+        <br />
+        <div class="row">
+            <div class="col-md-5">COURSE NAME</div>
+            <div class="col-md-3">AUTHOR</div>
+            <div class="col-md-3">LAST VIEWED</div>
+        </div>
+        <br />
+        <div class="row" ng-repeat="recentCourse in vm.recentCourses">
+                <div class="col-md-5">{{recentCourse.Course.CourseName}}</div>
+                <div class="col-md-3">{{recentCourse.Course.Author.FirstName + ' ' + recentCourse.Course.Author.LastName}}</div>
+                <div class="col-md-3">{{recentCourse.ViewedOn | date:"medium"}}</div>
+            </div>
+    </div>
+</div>
